@@ -18,3 +18,5 @@ RUN echo 'unqualified-search-registries = ["docker.io"]' > /etc/containers/regis
 
 # Install necessary packages for rootless Podman
 RUN dnf install -y fuse-overlayfs slirp4netns 
+
+WORKDIR /usr/src/app
