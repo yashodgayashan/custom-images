@@ -2,7 +2,7 @@
 FROM node:14
 
 # Install git
-RUN apt-get update && apt-get install -y git nano
+RUN apt-get update && apt-get install -y git
 
 # Create and change to the app directory
 WORKDIR /usr/src/app
