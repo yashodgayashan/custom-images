@@ -9,8 +9,7 @@ RUN dnf -y update && \
     wget \
     python3-pip
 
-RUN wget https://github.com/aquasecurity/trivy/releases/download/v0.24.2/trivy_0.24.2_Linux-ARM64.tar.gz && \
-    tar -xzf trivy_0.24.2_Linux-ARM64.tar.gz -C /usr/local/bin trivy && \
-    rm trivy_0.24.2_Linux-ARM64.tar.gz
+RUN wget https://github.com/aquasecurity/trivy/releases/download/v0.24.2/trivy_0.24.2_Linux-64bit.rpm && \
+    rpm -ivh trivy_0.24.2_Linux-64bit.rpm && \
+    rm trivy_0.24.2_Linux-64bit.rpm
 
-WORKDIR /usr/src/app
