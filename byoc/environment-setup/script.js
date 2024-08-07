@@ -1,16 +1,26 @@
-// script.js
+/**
+ * This script is used to save the status of the action run in the Choreo platform.
+ * 
+ * Usage: node script.js <baseURL> <workflowId> <componentId> <statusSequenceNo> <ghActionType> <token>
+ * 
+ * @param {String} baseURL - The base URL of the Choreo platform.
+ * @param {String} workflowId - The workflow ID.
+ * @param {String} componentId - The component ID.
+ * @param {String} statusSequenceNo - The sequence number of the status. Possible values are: 0 - QUEUED, 10 - IN_PROGRESS, 20 - COMPLETED.
+ * @param {String} ghActionType - The GitHub action type. Possible values are: "BUILD_DEPLOY", "MEDIATION_CODE_GENERATOR", "CONFIGURABLE_GENERATOR".
+ * @param {String} token - The token to authenticate the request.
+ */
 
 const axios = require('axios').default;
 
-// Ensure enough arguments are provided
 if (process.argv.length < 8) {
-    console.log("Usage: node script.js <baseURL> <runId> <componentId> <statusSequenceNo> <ghActionType> <token>");
+    console.log("Usage: node script.js <baseURL> <workflowId> <componentId> <statusSequenceNo> <ghActionType> <token>");
     process.exit(1);
 }
 
 // Get input values from command line arguments
 const baseURL = process.argv[2];
-const runId = process.argv[3];
+const workflowId = process.argv[3];
 const componentId = process.argv[4];
 const sequenceNo = process.argv[5];
 const ghActionType = process.argv[6];
@@ -23,7 +33,7 @@ try {
     };
     const payload = {
         componentId: componentId,
-        runId: parseInt(runId),
+        workflowId: workflowId,
         sequenceNo: parseInt(sequenceNo),
         ghActionType: ghActionType
     };
@@ -46,6 +56,5 @@ try {
         }
     });
 } catch (e) {
-    console.log("choreo-action-run-status-save", "failed");
     console.log("choreo-action-run-status-save", e.message);
 }
