@@ -30,6 +30,7 @@ process.env.CHOREO_GITOPS_REPO = choreoApp;
 process.env.REG_CRED_FILE_NAME = regCredFileName;
 process.env.DOCKER_TEMP_IMAGE = args.imageName;
 process.env.NEW_SHA = args.sha;
+process.env.RUNNER_TEMP = "/tmp";
 
 async function run() {
   switch (type) {
