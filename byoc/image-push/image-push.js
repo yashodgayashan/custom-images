@@ -5,8 +5,8 @@ const minimist = require("minimist");
 
 // Parse command-line arguments
 const args = minimist(process.argv.slice(2), {
-  string: ["type", "choreoApp", "regCredFileName"],
-  alias: { t: "type", c: "choreoApp", f: "regCredFileName" },
+  string: ["type", "choreoApp", "regCredFileName", "imageName", "sha"],
+  alias: { t: "type", c: "choreoApp", f: "regCredFileName", i: "imageName", s: "sha" },
   unknown: (arg) => {
     console.error(`Unknown option: ${arg}`);
     process.exit(1);
@@ -20,7 +20,7 @@ const regCredFileName = args.regCredFileName;
 // Validate required parameters
 if (!choreoApp || !type || !regCredFileName) {
   console.error(
-    "Missing required parameters. Usage: node choreo.js --type <type> --choreoApp <choreoApp> --regCredFileName <regCredFileName>"
+    "Missing required parameters. Usage: node image-push.js --type <type> --choreoApp <choreoApp> --regCredFileName <regCredFileName> --imageName <imageName> --sha <sha>"
   );
   process.exit(1);
 }
@@ -28,6 +28,8 @@ if (!choreoApp || !type || !regCredFileName) {
 // Set environment variables
 process.env.CHOREO_GITOPS_REPO = choreoApp;
 process.env.REG_CRED_FILE_NAME = regCredFileName;
+process.env.DOCKER_TEMP_IMAGE = args.imageName;
+process.env.NEW_SHA = args.sha;
 
 async function run() {
   switch (type) {
