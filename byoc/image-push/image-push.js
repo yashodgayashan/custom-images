@@ -13,12 +13,16 @@ const args = minimist(process.argv.slice(2), {
   },
 });
 
+// Set default values if not provided
+const type = args.type || "login_and_push";
+const regCredFileName = args.regCredFileName || "registry-credentials";
+const imageName = args.imageName || "choreo/app-image:latest";
+const sha = args.sha;  // Provide a sensible default or handle as needed
+
 const choreoApp = args.choreoApp;
-const type = args.type;
-const regCredFileName = args.regCredFileName;
 
 // Validate required parameters
-if (!choreoApp || !type || !regCredFileName) {
+if (!choreoApp || !sha ) {
   console.error(
     "Missing required parameters. Usage: node image-push.js --type <type> --choreoApp <choreoApp> --regCredFileName <regCredFileName> --imageName <imageName> --sha <sha>"
   );
@@ -28,8 +32,8 @@ if (!choreoApp || !type || !regCredFileName) {
 // Set environment variables
 process.env.CHOREO_GITOPS_REPO = choreoApp;
 process.env.REG_CRED_FILE_NAME = regCredFileName;
-process.env.DOCKER_TEMP_IMAGE = args.imageName;
-process.env.NEW_SHA = args.sha;
+process.env.DOCKER_TEMP_IMAGE = imageName;
+process.env.NEW_SHA = sha;
 process.env.RUNNER_TEMP = "/tmp";
 
 async function run() {
