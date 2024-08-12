@@ -17,4 +17,8 @@ RUN npm install -g swagger-cli
 
 WORKDIR /usr/src/app
 
+RUN npm init -y
 
+RUN npm install fs path minimist 
+
+COPY ./gitops-checkout.js .
