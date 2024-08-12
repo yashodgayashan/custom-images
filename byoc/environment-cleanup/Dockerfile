@@ -19,6 +19,8 @@ WORKDIR /usr/src/app
 
 RUN npm init -y
 
-RUN npm install fs path minimist 
+RUN npm install fs path minimist js-yaml axios
 
 COPY ./gitops-checkout.js .
+
+COPY ./build-deploy-action.js .
