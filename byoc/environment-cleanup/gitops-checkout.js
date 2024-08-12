@@ -1,6 +1,7 @@
 const { execSync } = require('child_process');
 const minimist = require('minimist');
 const path = require('path');
+const fs = require('fs');
 
 // Parse command-line arguments
 const args = minimist(process.argv.slice(2), {
@@ -39,12 +40,18 @@ try {
   execSync(`git clone ${REPO_URL}`);
 
   // Change directory to the cloned repository
-  process.chdir(repoName);
+  const repoPath = path.join(process.cwd(), repoName);
+  if (fs.existsSync(repoPath)) {
+    process.chdir(repoPath);
+    console.log(`Changed directory to ${repoPath}`);
+  } else {
+    throw new Error(`Repository path ${repoPath} does not exist.`);
+  }
 
   // Checkout the specified branch
   execSync(`git checkout ${BRANCH}`);
 
-  console.log('Git configuration and checkout completed successfully.');
+  console.log('Git configuration, cloning, and checkout completed successfully.');
 
 } catch (error) {
   console.error(`Error during Git operations: ${error.message}`);
