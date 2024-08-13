@@ -12,7 +12,13 @@ function usage() {
 // Parsing command-line arguments
 const args = minimist(process.argv.slice(2));
 
-if (!args['domain'] || !args['org-id'] || !args['project-id'] || !args['app-id'] || !args['env-id'] || !args['version'] || !args['image-name'] || !args['git-hash'] || !args['gitops-hash'] || !args['token'] || !args['debug'] || !args['is-http-based'] || !args['port-extract-file-path'] || !args['container-id'] || !args['is-container-deployment'] || !args['oas-file-path'] || !args['git-hash-date'] || !args['is-auto-deploy'] || !args['run-id']) {
+args['is-http-based'] = args['is-http-based'] !== undefined ? args['is-http-based'] : true;
+args['is-container-deployment'] = args['is-container-deployment'] !== undefined ? args['is-container-deployment'] : false;
+args['port-extract-file-path'] = args['port-extract-file-path'] !== undefined ? args['port-extract-file-path'] : 'target/kubernetes/workspace/workspace.yaml';
+
+args['git-hash-date'] = args['git-hash-date'] || new Date().toISOString();
+
+if (!args['domain'] || !args['org-id'] || !args['project-id'] || !args['app-id'] || !args['env-id'] || !args['version'] || !args['image-name'] || !args['git-hash'] || !args['gitops-hash'] || !args['token'] || !args['is-http-based'] || !args['port-extract-file-path'] || !args['is-container-deployment'] || !args['oas-file-path'] || !args['git-hash-date'] || !args['is-auto-deploy'] || !args['run-id']) {
     usage();
 }
 
