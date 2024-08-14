@@ -5,7 +5,7 @@ const minimist = require('minimist');
 
 // Function to display usage
 function usage() {
-    console.log(`Usage: node script.js --domain <domain> --org-id <org-id> --project-id <project-id> --app-id <app-id> --env-id <env-id> --version <version> --image-name <image-name> --git-hash <git-hash> --gitops-hash <gitops-hash> --token <token> --debug <debug> --is-http-based <is-http-based> --port-extract-file-path <port-extract-file-path> --container-id <container-id> --is-container-deployment <is-container-deployment> --oas-file-path <oas-file-path> --git-hash-date <git-hash-date> --is-auto-deploy <is-auto-deploy> --run-id <run-id>`);
+    console.log(`Usage: node script.js --domain <domain> --org-id <org-id> --project-id <project-id> --app-id <app-id> --choreo-app <choreo-app> --env-id <env-id> --version <version> --image-name <image-name> --git-hash <git-hash> --gitops-hash <gitops-hash> --token <token> --debug <debug> --is-http-based <is-http-based> --port-extract-file-path <port-extract-file-path> --container-id <container-id> --is-container-deployment <is-container-deployment> --oas-file-path <oas-file-path> --git-hash-date <git-hash-date> --is-auto-deploy <is-auto-deploy> --run-id <run-id>`);
     process.exit(1);
 }
 
@@ -18,7 +18,7 @@ args['port-extract-file-path'] = args['port-extract-file-path'] !== undefined ? 
 
 args['git-hash-date'] = args['git-hash-date'] || new Date().toISOString();
 
-if (!args['domain'] || !args['org-id'] || !args['project-id'] || !args['app-id'] || !args['env-id'] || !args['version'] || !args['image-name'] || !args['git-hash'] || !args['gitops-hash'] || !args['token'] || !args['is-http-based'] || !args['port-extract-file-path'] || !args['is-container-deployment'] || !args['oas-file-path'] || !args['git-hash-date'] || !args['is-auto-deploy'] || !args['run-id']) {
+if (!args['domain'] || !args['org-id'] || !args['project-id'] || !args['app-id'] || !args['env-id'] || !args['version'] || !args['image-name'] || !args['git-hash'] || !args['gitops-hash'] || !args['token'] || !args['is-http-based'] || !args['port-extract-file-path'] || !args['is-container-deployment'] || !args['oas-file-path'] || !args['git-hash-date'] || !args['is-auto-deploy'] || !args['run-id'] || !args['choreo-app']) {
     usage();
 }
 
@@ -49,8 +49,31 @@ try {
     const gitHashDate = args['git-hash-date'];
     const isAutoDeploy = args['is-auto-deploy'] === 'true';
     const runId = args['run-id'];
+    const choreoApp = args['choreo-app'];
 
-    const choreoApp = process.env.CHOREO_GITOPS_REPO;
+    console.log("domain: ", domain);
+    console.log("organizationId: ", organizationId);
+    console.log("projectId: ", projectId);
+    console.log("appId: ", appId);
+    console.log("envId: ", envId);
+    console.log("api_version_id: ", api_version_id);
+    console.log("imageName: ", imageName);
+    console.log("gitHash: ", gitHash);
+    console.log("gitOpsHash: ", gitOpsHash);
+    console.log("token: ", token);
+    console.log("debug: ", debug);
+    console.log("isHttpBased: ", isHttpBased);
+    console.log("portExtractFilePath: ", portExtractFilePath);
+    console.log("containerId: ", containerId);
+    console.log("isContainerDeployment: ", isContainerDeployment);
+    console.log("oasFilePath: ", oasFilePath);
+    console.log("gitHashDate: ", gitHashDate);
+    console.log("isAutoDeploy: ", isAutoDeploy);
+    console.log("runId: ", runId);
+    console.log("choreoApp: ", choreoApp);
+
+    process.env.REG_CRED_FILE_NAME = "registry-credentials";
+
     let cluster_image_tags = [];
     let preparedPortExtractFilePath = getPreparedPath(portExtractFilePath);
     if (!isContainerDeployment) {
@@ -87,7 +110,10 @@ try {
     }
 
     try {
-        const fileContents = fs.readFileSync(`/home/runner/workspace/${choreoApp}/${process.env.REG_CRED_FILE_NAME}`, 'utf8');
+        const fileContents = fileContents = fs.readFileSync(
+            `/mnt/secrets/${process.env.REG_CRED_FILE_NAME}`,
+            "utf8"
+          );
         let data = JSON.parse(fileContents);
         for (const cred of data) {
             // We add docker hub docker login to increase the image pull rate limit and this registry id is added as a choreo-docker-hub
@@ -98,7 +124,7 @@ try {
             cluster_image_tags.push({
                 registry_id: cred.registry_id,
                 clusters: cred.clusters,
-                image_name_with_tag: `${cred.credentials.registry}/${choreoApp}:${process.env.NEW_SHA}`
+                image_name_with_tag: `${cred.credentials.registry}/${choreoApp}:${gitHash}`
             });
         }
     } catch (error) {
