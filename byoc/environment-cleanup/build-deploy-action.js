@@ -19,6 +19,61 @@ args['port-extract-file-path'] = args['port-extract-file-path'] !== undefined ? 
 args['git-hash-date'] = args['git-hash-date'] || new Date().toISOString();
 
 if (!args['domain'] || !args['org-id'] || !args['project-id'] || !args['app-id'] || !args['env-id'] || !args['version'] || !args['image-name'] || !args['git-hash'] || !args['gitops-hash'] || !args['token'] || !args['is-http-based'] || !args['port-extract-file-path'] || !args['is-container-deployment'] || !args['oas-file-path'] || !args['git-hash-date'] || !args['is-auto-deploy'] || !args['run-id'] || !args['choreo-app']) {
+    if (!args['domain']) {
+        console.error("Missing required parameter: domain");
+    }
+    if (!args['org-id']) {
+        console.error("Missing required parameter: org-id");
+    }
+    if (!args['project-id']) {
+        console.error("Missing required parameter: project-id");
+    }
+    if (!args['app-id']) {
+        console.error("Missing required parameter: app-id");
+    }
+    if (!args['env-id']) {
+        console.error("Missing required parameter: env-id");
+    }
+    if (!args['version']) {
+        console.error("Missing required parameter: version");
+    }
+    if (!args['image-name']) {
+        console.error("Missing required parameter: image-name");
+    }
+    if (!args['git-hash']) {
+        console.error("Missing required parameter: git-hash");
+    }
+    if (!args['gitops-hash']) {
+        console.error("Missing required parameter: gitops-hash");
+    }
+    if (!args['token']) {
+        console.error("Missing required parameter: token");
+    }
+    if (!args['is-http-based']) {
+        console.error("Missing required parameter: is-http-based");
+    }
+    if (!args['port-extract-file-path']) {
+        console.error("Missing required parameter: port-extract-file-path");
+    }
+    if (!args['is-container-deployment']) {
+        console.error("Missing required parameter: is-container-deployment");
+    }
+    if (!args['oas-file-path']) {
+        console.error("Missing required parameter: oas-file-path");
+    }
+    if (!args['git-hash-date']) {
+        console.error("Missing required parameter: git-hash-date");
+    }
+    if (!args['is-auto-deploy']) {
+        console.error("Missing required parameter: is-auto-deploy");
+    }
+    if (!args['run-id']) {
+        console.error("Missing required parameter: run-id");
+    }
+    if (!args['choreo-app']) {
+        console.error("Missing required parameter: choreo-app");
+    }
+    
     usage();
 }
 
