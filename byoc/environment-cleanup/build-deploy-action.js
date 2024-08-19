@@ -5,7 +5,7 @@ const minimist = require('minimist');
 
 // Function to display usage
 function usage() {
-    console.log(`Usage: node script.js --domain <domain> --org-id <org-id> --project-id <project-id> --app-id <app-id> --choreo-app <choreo-app> --env-id <env-id> --version <version> --image-name <image-name> --git-hash <git-hash> --gitops-hash <gitops-hash> --token <token> --debug <debug> --is-http-based <is-http-based> --port-extract-file-path <port-extract-file-path> --container-id <container-id> --is-container-deployment <is-container-deployment> --oas-file-path <oas-file-path> --git-hash-date <git-hash-date> --is-auto-deploy <is-auto-deploy> --run-id <run-id> --registry-cred-file-name <registry-cred-file-name>`);
+    console.log(`Usage: node script.js --domain <domain> --org-id <org-id> --project-id <project-id> --app-id <app-id> --choreo-app <choreo-app> --env-id <env-id> --version <version> --image-name <image-name> --git-hash <git-hash> --gitops-hash <gitops-hash> --token <token> --debug <debug> --is-http-based <is-http-based> --port-extract-file-path <port-extract-file-path> --container-id <container-id> --is-container-deployment <is-container-deployment> --oas-file-path <oas-file-path> --git-hash-date <git-hash-date> --is-auto-deploy <is-auto-deploy> --run-id <run-id>`);
     process.exit(1);
 }
 
@@ -18,7 +18,7 @@ args['port-extract-file-path'] = args['port-extract-file-path'] !== undefined ? 
 
 args['git-hash-date'] = args['git-hash-date'] || new Date().toISOString();
 
-if (!args['domain'] || !args['org-id'] || !args['project-id'] || !args['app-id'] || !args['env-id'] || !args['version'] || !args['image-name'] || !args['git-hash'] || !args['gitops-hash'] || !args['token'] || !args['is-http-based'] || !args['port-extract-file-path'] || !args['is-container-deployment'] || !args['oas-file-path'] || !args['git-hash-date'] || !args['is-auto-deploy'] || !args['run-id'] || !args['choreo-app'] || !args['registry-cred-file-name']) {
+if (!args['domain'] || !args['org-id'] || !args['project-id'] || !args['app-id'] || !args['env-id'] || !args['version'] || !args['image-name'] || !args['git-hash'] || !args['gitops-hash'] || !args['token'] || !args['is-http-based'] || !args['port-extract-file-path'] || !args['is-container-deployment'] || !args['oas-file-path'] || !args['git-hash-date'] || !args['is-auto-deploy'] || !args['run-id'] || !args['choreo-app']) {
     if (!args['domain']) {
         console.error("Missing required parameter: domain");
     }
@@ -171,10 +171,7 @@ try {
             `/mnt/secrets/${process.env.REG_CRED_FILE_NAME}`,
             "utf8"
           );
-        console.log(`Reading ${process.env.REG_CRED_FILE_NAME} file....`);
-        console.log(`File Contents: ${fileContents}`);
         let data = JSON.parse(fileContents);
-        console.log(`Data: ${data}`);
         for (const cred of data) {
             // We add docker hub docker login to increase the image pull rate limit and this registry id is added as a choreo-docker-hub
             // so we skip the docker push for this registry
