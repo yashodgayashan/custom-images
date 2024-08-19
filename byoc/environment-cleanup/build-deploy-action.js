@@ -18,6 +18,7 @@ args['port-extract-file-path'] = args['port-extract-file-path'] !== undefined ? 
 
 args['git-hash-date'] = args['git-hash-date'] || new Date().toISOString();
 
+
 if (!args['domain'] || !args['org-id'] || !args['project-id'] || !args['app-id'] || !args['env-id'] || !args['version'] || !args['image-name'] || !args['git-hash'] || !args['gitops-hash'] || !args['token'] || !args['is-http-based'] || !args['port-extract-file-path'] || !args['is-container-deployment'] || !args['oas-file-path'] || !args['git-hash-date'] || !args['is-auto-deploy'] || !args['run-id'] || !args['choreo-app']) {
     if (!args['domain']) {
         console.error("Missing required parameter: domain");
@@ -100,7 +101,11 @@ try {
     const portExtractFilePath = args['port-extract-file-path'];
     const containerId = args['container-id'];
     const isContainerDeployment = args['is-container-deployment'];
-    const oasFilePath = args['oas-file-path'] || "";
+    let oasFilePath = args['oas-file-path'];
+    // if oasFilePath is true then set empty string
+    if (oasFilePath === 'true') {
+        oasFilePath = '';
+    }
     const gitHashDate = args['git-hash-date'];
     const isAutoDeploy = args['is-auto-deploy'] === 'true';
     const runId = args['run-id'];
