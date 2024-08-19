@@ -5,7 +5,7 @@ const minimist = require('minimist');
 
 // Function to display usage
 function usage() {
-    console.log(`Usage: node script.js --domain <domain> --org-id <org-id> --project-id <project-id> --app-id <app-id> --choreo-app <choreo-app> --env-id <env-id> --version <version> --image-name <image-name> --git-hash <git-hash> --gitops-hash <gitops-hash> --token <token> --debug <debug> --is-http-based <is-http-based> --port-extract-file-path <port-extract-file-path> --container-id <container-id> --is-container-deployment <is-container-deployment> --oas-file-path <oas-file-path> --git-hash-date <git-hash-date> --is-auto-deploy <is-auto-deploy> --run-id <run-id>`);
+    console.log(`Usage: node script.js --domain <domain> --org-id <org-id> --project-id <project-id> --app-id <app-id> --choreo-app <choreo-app> --env-id <env-id> --version <version> --image-name <image-name> --git-hash <git-hash> --gitops-hash <gitops-hash> --token <token> --debug <debug> --is-http-based <is-http-based> --port-extract-file-path <port-extract-file-path> --container-id <container-id> --is-container-deployment <is-container-deployment> --oas-file-path <oas-file-path> --git-hash-date <git-hash-date> --is-auto-deploy <is-auto-deploy> --run-id <run-id> --registry-cred-file-name <registry-cred-file-name>`);
     process.exit(1);
 }
 
@@ -18,7 +18,7 @@ args['port-extract-file-path'] = args['port-extract-file-path'] !== undefined ? 
 
 args['git-hash-date'] = args['git-hash-date'] || new Date().toISOString();
 
-if (!args['domain'] || !args['org-id'] || !args['project-id'] || !args['app-id'] || !args['env-id'] || !args['version'] || !args['image-name'] || !args['git-hash'] || !args['gitops-hash'] || !args['token'] || !args['is-http-based'] || !args['port-extract-file-path'] || !args['is-container-deployment'] || !args['oas-file-path'] || !args['git-hash-date'] || !args['is-auto-deploy'] || !args['run-id'] || !args['choreo-app']) {
+if (!args['domain'] || !args['org-id'] || !args['project-id'] || !args['app-id'] || !args['env-id'] || !args['version'] || !args['image-name'] || !args['git-hash'] || !args['gitops-hash'] || !args['token'] || !args['is-http-based'] || !args['port-extract-file-path'] || !args['is-container-deployment'] || !args['oas-file-path'] || !args['git-hash-date'] || !args['is-auto-deploy'] || !args['run-id'] || !args['choreo-app'] || !args['registry-cred-file-name']) {
     if (!args['domain']) {
         console.error("Missing required parameter: domain");
     }
@@ -105,6 +105,7 @@ try {
     const isAutoDeploy = args['is-auto-deploy'] === 'true';
     const runId = args['run-id'];
     const choreoApp = args['choreo-app'];
+    const registryCredFileName = args['registry-cred-file-name'];
 
     console.log("domain: ", domain);
     console.log("organizationId: ", organizationId);
@@ -126,8 +127,9 @@ try {
     console.log("isAutoDeploy: ", isAutoDeploy);
     console.log("runId: ", runId);
     console.log("choreoApp: ", choreoApp);
+    console.log("registryCredFileName: ", registryCredFileName);
 
-    process.env.REG_CRED_FILE_NAME = "registry-credentials";
+    process.env.REG_CRED_FILE_NAME = registryCredFileName || "registry-credentials";
 
     let cluster_image_tags = [];
     let preparedPortExtractFilePath = getPreparedPath(portExtractFilePath);
