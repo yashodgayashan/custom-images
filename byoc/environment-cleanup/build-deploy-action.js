@@ -167,7 +167,7 @@ try {
     }
 
     try {
-        const fileContents = fileContents = fs.readFileSync(
+        const fileContents = fs.readFileSync(
             `/mnt/secrets/${process.env.REG_CRED_FILE_NAME}`,
             "utf8"
           );
