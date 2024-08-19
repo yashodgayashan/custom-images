@@ -171,7 +171,10 @@ try {
             `/mnt/secrets/${process.env.REG_CRED_FILE_NAME}`,
             "utf8"
           );
+        console.log(`Reading ${process.env.REG_CRED_FILE_NAME} file....`);
+        console.log(`File Contents: ${fileContents}`);
         let data = JSON.parse(fileContents);
+        console.log(`Data: ${data}`);
         for (const cred of data) {
             // We add docker hub docker login to increase the image pull rate limit and this registry id is added as a choreo-docker-hub
             // so we skip the docker push for this registry
