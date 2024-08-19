@@ -100,7 +100,7 @@ try {
     const portExtractFilePath = args['port-extract-file-path'];
     const containerId = args['container-id'];
     const isContainerDeployment = args['is-container-deployment'];
-    const oasFilePath = args['oas-file-path'];
+    const oasFilePath = args['oas-file-path'] || "";
     const gitHashDate = args['git-hash-date'];
     const isAutoDeploy = args['is-auto-deploy'] === 'true';
     const runId = args['run-id'];
