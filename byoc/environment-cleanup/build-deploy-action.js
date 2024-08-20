@@ -103,7 +103,7 @@ try {
     const isContainerDeployment = args['is-container-deployment'];
     let oasFilePath = args['oas-file-path'];
     // if oasFilePath is true then set empty string
-    if (oasFilePath === 'true') {
+    if (oasFilePath == true) {
         oasFilePath = '';
     }
     const gitHashDate = args['git-hash-date'];
