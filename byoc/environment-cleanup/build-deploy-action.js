@@ -236,6 +236,9 @@ try {
         console.log("request-body: ", JSON.stringify(body));
     }
 
+    console.log("WebhookURL: ", WebhookURL);
+    console.log("request-body: ", JSON.stringify(body));
+
     axios.post(WebhookURL, body).then(function (response) {
         console.log("choreo-status", "deployed");
     }).catch(function (error) {
