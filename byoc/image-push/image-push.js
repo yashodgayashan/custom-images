@@ -58,7 +58,6 @@ async function login_and_push() {
     );
     let data = JSON.parse(fileContents);
     for (const cred of data) {
-      console.log(cred);
       if (cred.type == "ACR") {
         await acrLogin(cred);
         await dockerPush(cred);
