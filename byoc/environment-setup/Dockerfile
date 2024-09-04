@@ -20,3 +20,7 @@ RUN cd ..
 COPY ./github-checkout.sh .
 
 RUN chmod +x github-checkout.sh
+
+COPY ./status-update.sh .
+
+RUN chmod +x status-update.sh

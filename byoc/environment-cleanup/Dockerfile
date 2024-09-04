@@ -24,3 +24,7 @@ RUN npm install fs path minimist js-yaml axios
 COPY ./gitops-checkout.js .
 
 COPY ./build-deploy-action.js .
+
+COPY ./status-update.sh .
+
+RUN chmod +x status-update.sh
