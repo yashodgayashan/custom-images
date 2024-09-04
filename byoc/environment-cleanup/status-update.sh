@@ -55,7 +55,7 @@ if [ -z "$conclusion" ]; then
 fi
 
 # Construct the URL
-url="$baseurl/api/v1/actions/components/$componentId/deployment-tracks/$trackId/workflows/$workflowName/status"
+url="$baseurl/component-utils/1.0.0/actions/components/$componentId/deployment-tracks/$trackId/workflows/$workflowName/status"
 
 # Run the curl command
 curl --location --request POST "$url" \
