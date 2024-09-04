@@ -1,28 +1,68 @@
 #!/bin/bash
 
-# Check if the correct number of arguments are provided
-if [ "$#" -ne 6 ]; then
-    echo "Usage: $0 <baseurl> <componentId> <trackId> <workflowName> <status> <conclusion>"
+# Default values
+baseurl=""
+componentId=""
+trackId=""
+workflowName=""
+status=""
+conclusion=""
+
+# Function to print usage
+print_usage() {
+    echo "Usage: $0 --baseurl=<baseurl> --componentId=<componentId> --trackId=<trackId> --workflowName=<workflowName> --status=<status> [--conclusion=<conclusion>]"
     exit 1
+}
+
+# Parse key-value arguments
+while [ $# -gt 0 ]; do
+  case $1 in
+    --baseurl=*)
+      baseurl="${1#*=}"
+      ;;
+    --componentId=*)
+      componentId="${1#*=}"
+      ;;
+    --trackId=*)
+      trackId="${1#*=}"
+      ;;
+    --workflowName=*)
+      workflowName="${1#*=}"
+      ;;
+    --status=*)
+      status="${1#*=}"
+      ;;
+    --conclusion=*)
+      conclusion="${1#*=}"
+      ;;
+    *)
+      echo "Invalid argument: $1"
+      print_usage
+      ;;
+  esac
+  shift
+done
+
+# Check if required inputs are provided
+if [[ -z "$baseurl" || -z "$componentId" || -z "$trackId" || -z "$workflowName" || -z "$status" ]]; then
+    echo "Error: baseurl, componentId, trackId, workflowName, and status are required."
+    print_usage
 fi
 
-# Assign input arguments to variables
-BASEURL=$1
-COMPONENT_ID=$2
-TRACK_ID=$3
-WORKFLOW_NAME=$4
-STATUS=$5
-CONCLUSION=$6
+# If conclusion is not provided, use an empty string
+if [ -z "$conclusion" ]; then
+    conclusion=""
+fi
 
 # Construct the URL
-URL="$BASEURL/component-utils/1.0.0/actions/components/$COMPONENT_ID/deployment-tracks/$TRACK_ID/workflows/$WORKFLOW_NAME/status"
+url="$baseurl/api/v1/actions/components/$componentId/deployment-tracks/$trackId/workflows/$workflowName/status"
 
 # Run the curl command
-curl --location --request POST "$URL" \
+curl --location --request POST "$url" \
 --header 'Content-Type: application/json' \
 --data-raw "{
-    \"status\": \"$STATUS\",
-    \"conclusion\": \"$CONCLUSION\"
+    \"status\": \"$status\",
+    \"conclusion\": \"$conclusion\"
 }"
 
 # Check if the curl command succeeded
@@ -32,5 +72,3 @@ if [ $? -ne 0 ]; then
 else
     echo -e "\nCurl request succeeded"
 fi
-
-# End of script
