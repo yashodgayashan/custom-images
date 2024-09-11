@@ -112,28 +112,6 @@ try {
     const choreoApp = args['choreo-app'];
     const registryCredFileName = args['registry-cred-file-name'];
 
-    console.log("domain: ", domain);
-    console.log("organizationId: ", organizationId);
-    console.log("projectId: ", projectId);
-    console.log("appId: ", appId);
-    console.log("envId: ", envId);
-    console.log("api_version_id: ", api_version_id);
-    console.log("imageName: ", imageName);
-    console.log("gitHash: ", gitHash);
-    console.log("gitOpsHash: ", gitOpsHash);
-    console.log("token: ", token);
-    console.log("debug: ", debug);
-    console.log("isHttpBased: ", isHttpBased);
-    console.log("portExtractFilePath: ", portExtractFilePath);
-    console.log("containerId: ", containerId);
-    console.log("isContainerDeployment: ", isContainerDeployment);
-    console.log("oasFilePath: ", oasFilePath);
-    console.log("gitHashDate: ", gitHashDate);
-    console.log("isAutoDeploy: ", isAutoDeploy);
-    console.log("runId: ", runId);
-    console.log("choreoApp: ", choreoApp);
-    console.log("registryCredFileName: ", registryCredFileName);
-
     process.env.REG_CRED_FILE_NAME = registryCredFileName || "registry-credentials";
 
     let cluster_image_tags = [];
@@ -208,7 +186,7 @@ try {
         cluster_image_tags,
         git_hash_commit_timestamp: gitHashDate,
         is_auto_deploy: isAutoDeploy,
-        run_id: runId
+        run_id: runId.toString()
     } : {
         image: imageName,
         tag: gitHash,
@@ -225,7 +203,7 @@ try {
         cluster_image_tags,
         git_hash_commit_timestamp: gitHashDate,
         is_auto_deploy: isAutoDeploy,
-        run_id: runId
+        run_id: runId.toString()
     };
 
     let WebhookURL;
