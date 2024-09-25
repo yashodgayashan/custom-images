@@ -19,7 +19,7 @@ WORKDIR /usr/src/app
 
 RUN npm init -y
 
-RUN npm install fs path yup js-yaml minimist
+RUN npm install fs path yup js-yaml minimist axios
 
 COPY ./enums.js .
 
@@ -28,3 +28,9 @@ COPY ./schemas.js .
 COPY ./validate.js .
 
 COPY ./config-generate-schema.js .
+
+COPY ./configurable-generation-status-update.js .
+
+COPY ./config-check.sh .
+
+RUN chmod +x config-check.sh
