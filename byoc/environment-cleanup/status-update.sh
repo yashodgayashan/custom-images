@@ -57,6 +57,8 @@ fi
 # Construct the URL
 url="$baseurl/component-utils/1.0.0/actions/components/$componentId/deployment-tracks/$trackId/workflows/$workflowName/status"
 
+echo -e "\nURL: $url"
+
 # Run the curl command
 curl --location --request POST "$url" \
 --header 'Content-Type: application/json' \
