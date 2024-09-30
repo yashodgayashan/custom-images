@@ -19,7 +19,7 @@ WORKDIR /usr/src/app
 
 RUN npm init -y
 
-RUN npm install fs path yup js-yaml minimist axios
+RUN npm install fs path yup js-yaml minimist axios toml json2toml
 
 COPY ./enums.js .
 
