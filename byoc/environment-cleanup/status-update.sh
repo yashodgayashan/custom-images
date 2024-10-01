@@ -7,10 +7,11 @@ trackId=""
 workflowName=""
 status=""
 conclusion=""
+token=""
 
 # Function to print usage
 print_usage() {
-    echo "Usage: $0 --baseurl=<baseurl> --componentId=<componentId> --trackId=<trackId> --workflowName=<workflowName> --status=<status> [--conclusion=<conclusion>]"
+    echo "Usage: $0 --baseurl=<baseurl> --componentId=<componentId> --trackId=<trackId> --workflowName=<workflowName> --status=<status> [--conclusion=<conclusion>] --token=<token>"
     exit 1
 }
 
@@ -35,6 +36,9 @@ while [ $# -gt 0 ]; do
     --conclusion=*)
       conclusion="${1#*=}"
       ;;
+    --token=*)
+      token="${1#*=}"
+      ;;
     *)
       echo "Invalid argument: $1"
       print_usage
@@ -44,8 +48,8 @@ while [ $# -gt 0 ]; do
 done
 
 # Check if required inputs are provided
-if [[ -z "$baseurl" || -z "$componentId" || -z "$trackId" || -z "$workflowName" || -z "$status" ]]; then
-    echo "Error: baseurl, componentId, trackId, workflowName, and status are required."
+if [[ -z "$baseurl" || -z "$componentId" || -z "$trackId" || -z "$workflowName" || -z "$status" || -z "$token" ]]; then
+    echo "Error: baseurl, componentId, trackId, workflowName, status, and token are required."
     print_usage
 fi
 
@@ -57,9 +61,10 @@ fi
 # Construct the URL
 url="$baseurl/component-utils/1.0.0/actions/components/$componentId/deployment-tracks/$trackId/workflows/$workflowName/status"
 
-# Run the curl command
+# Run the curl command with the token
 curl --location --request POST "$url" \
 --header 'Content-Type: application/json' \
+--header "Authorization: Bearer $token" \
 --data-raw "{
     \"status\": \"$status\",
     \"conclusion\": \"$conclusion\"
@@ -72,4 +77,3 @@ if [ $? -ne 0 ]; then
 else
     echo -e "\nCurl request succeeded"
 fi
-
