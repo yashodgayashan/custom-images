@@ -8,12 +8,13 @@ function readInput() {
     const componentId = args['componentId'];
     const versionId = args['versionId'];
     const sourceCommit = args['sourceCommit'];
-    const gitOpsCommit = args['gitOpsCommit'];
+    const gitOpsCommit = args['gitOpsCommit'] || null; // Allow gitOpsCommit to be null
     const status = args['status'];
     const configMappingId = args['configMappingId'];
 
-    if (!baseURL || !componentId || !versionId || !sourceCommit || !gitOpsCommit || !status || !configMappingId) {
-        throw new Error("The arguments --baseURL, --componentId, --versionId, --sourceCommit, --gitOpsCommit, --status, and --configMappingId are required.");
+    // gitOpsCommit is allowed to be null, so it's removed from this validation check
+    if (!baseURL || !componentId || !versionId || !sourceCommit || !status || !configMappingId) {
+        throw new Error("The arguments --baseURL, --componentId, --versionId, --sourceCommit, --status, and --configMappingId are required.");
     }
 
     return { baseURL, componentId, versionId, sourceCommit, gitOpsCommit, status, configMappingId };
@@ -27,7 +28,7 @@ async function main() {
         const payload = {
             status: status,
             id: configMappingId,
-            gitOpsCommit: gitOpsCommit
+            gitOpsCommit: gitOpsCommit // This can now be null
         };
 
         console.log("Payload:", payload);
