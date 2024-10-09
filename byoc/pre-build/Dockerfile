@@ -1,4 +1,4 @@
-FROM python:3.9-alpine
+FROM python:3.10-alpine
 
 RUN apk update && \
     apk add --no-cache \
@@ -16,6 +16,7 @@ WORKDIR /usr/src/app
 
 COPY ./run_checkov.sh /usr/src/app/run_checkov.sh
 COPY ./custom-checkov-policy /usr/src/app/custom-checkov-policy
+COPY ./Dockerfile /usr/src/app/Dockerfile
 
 RUN chmod +x /usr/src/app/run_checkov.sh
 
