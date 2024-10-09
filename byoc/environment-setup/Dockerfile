@@ -10,6 +10,8 @@ WORKDIR /usr/src/app
 RUN npm init -y && \
     npm install axios@0.21.2
 
-COPY ./script.js ./github-checkout.sh ./status-update.sh ./
+COPY ./script.js 
+COPY ./github-checkout.sh .
+COPY ./status-update.sh .
 
 RUN chmod +x github-checkout.sh status-update.sh
