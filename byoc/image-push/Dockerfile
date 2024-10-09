@@ -1,14 +1,17 @@
-FROM quay.io/podman/stable:latest
+FROM alpine:3.20
 
-# Install necessary tools and dependencies
-RUN dnf install -y nodejs npm && dnf clean all
+RUN apk update && \
+    apk add --no-cache \
+    nodejs=20.15.1-r0 \
+    npm=10.8.0-r0 \
+    podman=5.2.4-r0 \
+    fuse-overlayfs=1.14-r0 \
+    slirp4netns=1.2.3-r0 \
+    && rm -rf /var/cache/apk/*
 
 WORKDIR /usr/src/app
 
-RUN npm init -y
+RUN npm init -y && \
+    npm install fs@0.0.1-security path@0.12.7 minimist@1.2.6
 
-# Install the required dependencies
-RUN npm install fs path minimist 
-
-# Copy the source code to the app directory
 COPY ./image-push.js .

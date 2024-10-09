@@ -1,26 +1,15 @@
-# Use the official Node.js image from the Docker Hub
-FROM node:14
+FROM node:22-alpine
 
-# Install git
-RUN apt-get update && apt-get install -y git
+RUN apk update && \
+    apk add --no-cache \
+    git=2.45.2-r0 \
+    && rm -rf /var/cache/apk/*
 
-# Create and change to the app directory
 WORKDIR /usr/src/app
 
-RUN npm init -y
+RUN npm init -y && \
+    npm install axios@0.21.2
 
-# Install the required dependencies
-RUN npm install axios
+COPY ./script.js ./github-checkout.sh ./status-update.sh ./
 
-# Copy the source code to the app directory
-COPY ./script.js .
-
-RUN cd ..
-
-COPY ./github-checkout.sh .
-
-RUN chmod +x github-checkout.sh
-
-COPY ./status-update.sh .
-
-RUN chmod +x status-update.sh
+RUN chmod +x github-checkout.sh status-update.sh

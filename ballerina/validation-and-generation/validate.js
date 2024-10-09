@@ -11,12 +11,14 @@ const { sourceConfigFileTypes, errCodes } = require("./enums");
 
 function readInput() {
   const args = minimist(process.argv.slice(2));
-  
+
   const sourceRootDir = args["source-root-dir"];
   const fileType = args["file-type"];
-  
+
   if (!sourceRootDir || !fileType) {
-    throw new Error("Both --source-root-dir and --file-type arguments are required");
+    throw new Error(
+      "Both --source-root-dir and --file-type arguments are required"
+    );
   }
 
   return [sourceRootDir, fileType];
@@ -68,7 +70,11 @@ function constructValidationErrorMessage(err, fileType) {
   return errorMsg + errorList;
 }
 
-async function validateSourceConfigFile(sourceRootDir, fileType, srcConfigYamlFile) {
+async function validateSourceConfigFile(
+  sourceRootDir,
+  fileType,
+  srcConfigYamlFile
+) {
   try {
     switch (fileType) {
       case sourceConfigFileTypes.COMPONENT_YAML:

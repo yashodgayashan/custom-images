@@ -1,15 +1,17 @@
-FROM quay.io/podman/stable:latest
+FROM alpine:3.20
 
-# Install necessary tools and dependencies
-RUN dnf -y update && \
-    dnf -y install \
-    curl-8.6.0 \
-    gnupg2-2.4.4\
-    # lsb-release-40 \
-    && dnf clean all
+SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 
-# Install pack CLI (Cloud Native Buildpacks CLI)
-RUN curl -sSL "https://github.com/buildpacks/pack/releases/download/v0.34.2/pack-v0.34.2-linux.tgz" | tar -C /usr/local/bin -xzv pack
+RUN apk update && \
+    apk add --no-cache \
+    curl=8.10.1-r0 \
+    gnupg=2.4.5-r0 \
+    podman=5.0.3-r2 \
+    fuse-overlayfs=1.13-r0 \
+    slirp4netns=1.2.3-r0 \
+    lsb-release=12.0-r2 \
+    && rm -rf /var/cache/apk/*
 
-# Set the working directory
+RUN curl -sSL "https://github.com/buildpacks/pack/releases/download/v0.35.1/pack-v0.35.1-linux.tgz" | tar -C /usr/local/bin -xzv pack
+
 WORKDIR /usr/src/app

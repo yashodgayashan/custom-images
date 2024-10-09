@@ -20,17 +20,17 @@
 # RUN dnf install -y fuse-overlayfs slirp4netns 
 
 # WORKDIR /usr/src/app
-FROM alpine:3.18
+FROM alpine:3.20
 
-# Install necessary packages (fuse-overlayfs, slirp4netns) and configure Podman
+# Install necessary tools (podman, fuse-overlayfs, slirp4netns) and clean up afterward
 RUN apk update && \
     apk add --no-cache \
-    fuse-overlayfs \
-    slirp4netns \
-    podman \
+    podman=5.0.3-r2 \
+    fuse-overlayfs=1.13-r0 \
+    slirp4netns=1.2.3-r0 \
     && rm -rf /var/cache/apk/*
 
-# Configure container registry search in registries.conf
+# Configure container registry search
 RUN echo 'unqualified-search-registries = ["docker.io"]' > /etc/containers/registries.conf
 
 WORKDIR /usr/src/app
