@@ -9,7 +9,7 @@ RUN apk update && \
     && rm -rf /var/cache/apk/*
 
 # Install checkov and the missing 'six' module
-RUN pip install --no-cache-dir checkov==2.0.0 six=1.16.0
+RUN pip install --no-cache-dir checkov==2.0.0 six=1.15.0
 
 # Set the working directory
 WORKDIR /usr/src/app
