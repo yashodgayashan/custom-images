@@ -1,29 +1,16 @@
-# Use an official Python image as a base
-FROM python:3.9
+FROM python:3.13-alpine
 
-# Install required tools: Git and Checkov
-RUN apt-get update && apt-get install -y \
-    git\
-    && pip install checkov
+SHELL ["/bin/sh", "-o", "pipefail", "-c"]
 
-# Create a directory for the application
+RUN apk update && \
+    apk add --no-cache \
+    git=2.45.2-r0 \
+    && rm -rf /var/cache/apk/*
+
+RUN pip install --no-cache-dir checkov==2.0.0
+
 WORKDIR /usr/src/app
 
-# Create a script to run the commands
-RUN echo '#!/bin/bash\n' \
-    'SCAN_RESULT_DIR=$1\n' \
-    'DOCKER_FILE_PATH=$2\n' \
-    'rm -rf $SCAN_RESULT_DIR\n' \
-    'mkdir -p $SCAN_RESULT_DIR\n' \
-    'checkov -f $DOCKER_FILE_PATH --framework dockerfile --check CKV_DOCKER_3,CKV_DOCKER_8,CKV_CHOREO_1 -o json --quiet --external-checks-dir /path/to/custom-checkov-policy --output-file-path $SCAN_RESULT_DIR\n' \
-    'CHECKOV_EXIT_CODE=$?\n' \
-    'if [ $CHECKOV_EXIT_CODE -ne 0 ]; then\n' \
-    '  echo "Checkov scan failed with exit code $CHECKOV_EXIT_CODE"\n' \
-    'fi\n' \
-    'echo "Copying scan results to /mnt/vol"\n' \
-    'cp -r $SCAN_RESULT_DIR /mnt/vol\n' \
-    'exit $CHECKOV_EXIT_CODE\n' \
-    > /usr/src/app/run_checkov.sh
+COPY ./run_checkov.sh /usr/src/app/run_checkov.sh
 
-# Make the script executable
 RUN chmod +x /usr/src/app/run_checkov.sh

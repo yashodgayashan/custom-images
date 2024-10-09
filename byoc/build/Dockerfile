@@ -25,8 +25,8 @@ FROM alpine:3.20
 # Install necessary tools (podman, fuse-overlayfs, slirp4netns) and clean up afterward
 RUN apk update && \
     apk add --no-cache \
-    podman=5.0.3-r2 \
-    fuse-overlayfs=1.13-r0 \
+    podman=5.2.4-r0 \
+    fuse-overlayfs=1.14-r0 \
     slirp4netns=1.2.3-r0 \
     && rm -rf /var/cache/apk/*
 

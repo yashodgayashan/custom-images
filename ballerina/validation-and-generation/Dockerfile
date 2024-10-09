@@ -10,8 +10,8 @@ RUN apk update && \
     py3-pip=24.0-r2 \
     nodejs=20.15.1-r0 \
     npm=10.8.0-r0 \
-    podman=5.0.3-r2 \
-    fuse-overlayfs=1.13-r0 \
+    podman=5.2.4-r0 \
+    fuse-overlayfs=1.14-r0 \
     slirp4netns=1.2.3-r0 \
     && rm -rf /var/cache/apk/*
 
