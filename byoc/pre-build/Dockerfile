@@ -18,3 +18,4 @@ COPY ./run_checkov.sh /usr/src/app/run_checkov.sh
 COPY ./custom-checkov-policy /usr/src/app/custom-checkov-policy
 
 RUN chmod +x /usr/src/app/run_checkov.sh
+
