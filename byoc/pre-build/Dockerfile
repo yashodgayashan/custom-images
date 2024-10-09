@@ -8,9 +8,7 @@ RUN apk update && \
     py3-cffi=1.16.0-r1 \
     && rm -rf /var/cache/apk/*
 
-RUN pip install --upgrade pip
-
-RUN pip install checkov==2.3.148
+RUN pip install --no-cache-dir  checkov==2.3.148
 
 WORKDIR /usr/src/app
 
