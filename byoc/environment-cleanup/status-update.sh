@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# Copyright (c) 2024, WSO2 LLC. (http://www.wso2.com). All Rights Reserved.
+#
+# This software is the property of WSO2 LLC. and its suppliers, if any.
+# Dissemination of any information or reproduction of any material contained
+# herein is strictly forbidden, unless permitted by WSO2 in accordance with
+# the WSO2 Commercial License available at http://wso2.com/licenses.
+# For specific language governing the permissions and limitations under
+# this license, please see the license as well as any agreement you’ve
+# entered into with WSO2 governing the purchase of this software and any
+# associated services.
+
 # Default values
 baseurl=""
 componentId=""
@@ -8,10 +19,11 @@ workflowName=""
 status=""
 conclusion=""
 token=""
+gitOpsCommitSha=""
 
 # Function to print usage
 print_usage() {
-    echo "Usage: $0 --baseurl=<baseurl> --componentId=<componentId> --trackId=<trackId> --workflowName=<workflowName> --status=<status> [--conclusion=<conclusion>] --token=<token>"
+    echo "Usage: $0 --baseurl=<baseurl> --componentId=<componentId> --trackId=<trackId> --workflowName=<workflowName> --status=<status> [--conclusion=<conclusion>] [--gitOpsCommitSha=<gitOpsCommitSha>] --token=<token>"
     exit 1
 }
 
@@ -36,6 +48,9 @@ while [ $# -gt 0 ]; do
     --conclusion=*)
       conclusion="${1#*=}"
       ;;
+    --gitOpsCommitSha=*)
+      gitOpsCommitSha="${1#*=}"
+      ;;
     --token=*)
       token="${1#*=}"
       ;;
@@ -58,20 +73,16 @@ if [ -z "$conclusion" ]; then
     conclusion=""
 fi
 
-# Construct the URL
 url="$baseurl/component-utils/1.0.0/actions/components/$componentId/deployment-tracks/$trackId/workflows/$workflowName/status"
 
-# Run the curl command with the token
-curl --location --request POST "$url" \
+if ! curl --location --request POST "$url" \
 --header 'Content-Type: application/json' \
 --header "Authorization: Bearer $token" \
 --data-raw "{
     \"status\": \"$status\",
-    \"conclusion\": \"$conclusion\"
-}"
-
-# Check if the curl command succeeded
-if [ $? -ne 0 ]; then
+    \"conclusion\": \"$conclusion\",
+    \"gitOpsCommitSha\": \"$gitOpsCommitSha\"}
+}"; then
     echo -e "\nCurl request failed"
     exit 1
 else
