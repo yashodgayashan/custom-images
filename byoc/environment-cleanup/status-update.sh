@@ -81,7 +81,7 @@ if ! curl --location --request POST "$url" \
 --data-raw "{
     \"status\": \"$status\",
     \"conclusion\": \"$conclusion\",
-    \"gitOpsCommitSha\": \"$gitOpsCommitSha\"}
+    \"gitOpsCommitSha\": \"$gitOpsCommitSha\"
 }"; then
     echo -e "\nCurl request failed"
     exit 1
