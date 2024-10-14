@@ -23,5 +23,6 @@ RUN npm init -y && \
 COPY ./gitops-checkout.js .
 COPY ./build-deploy-action.js .
 COPY ./status-update.sh .
+COPY ./configurable-generation-status-update.js .
 
 RUN chmod +x status-update.sh
