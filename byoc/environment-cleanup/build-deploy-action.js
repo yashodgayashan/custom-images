@@ -148,7 +148,7 @@ async function main() {
           environment_id: args["env-id"],
           registry_token: args["token"],
           container_id: args["container-id"],
-          api_definition_path: args["oas-file-path"],
+          api_definition_path: args["oas-file-path"] && args["oas-file-path"].trim() !== "" ? args["oas-file-path"] : null,
           cluster_image_tags,
           git_hash_commit_timestamp: args["git-hash-date"],
           is_auto_deploy: args["is-auto-deploy"] === "true",
