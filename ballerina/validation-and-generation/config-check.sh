@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Parse the --base-path argument
 while [[ "$#" -gt 0 ]]; do
