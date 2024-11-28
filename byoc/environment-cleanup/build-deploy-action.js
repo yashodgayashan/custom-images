@@ -51,7 +51,6 @@ function readInput() {
     "token",
     "is-http-based",
     "port-extract-file-path",
-    "is-container-deployment",
     "git-hash-date",
     "is-auto-deploy",
     "run-id",
