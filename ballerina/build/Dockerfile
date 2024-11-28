@@ -10,7 +10,7 @@ RUN apk update && \
     fuse-overlayfs=1.14-r0 \
     slirp4netns=1.2.3-r0 \
     lsb-release=12.0-r2 \
-    nodejs=21.7.3-r0 \
+    nodejs=current-21.7.3-r0 \
     npm=10.9.1-r0 \
     && rm -rf /var/cache/apk/*
 
