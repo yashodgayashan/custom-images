@@ -4,9 +4,9 @@ SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 
 RUN apk update && \
     apk add --no-cache \
-    curl=8.10.1-r0 \
+    curl=8.11.0-r2 \
     gnupg=2.4.5-r0 \
-    podman=5.2.4-r0 \
+    podman=5.2.5-r0 \
     fuse-overlayfs=1.14-r0 \
     slirp4netns=1.2.3-r0 \
     lsb-release=12.0-r2 \
