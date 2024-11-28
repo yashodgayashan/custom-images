@@ -174,7 +174,7 @@ async function main() {
         };
 
     console.log(body)
-    const webhookURL = args["is-container-deployment"]
+    const webhookURL = args["is-container-deployment"] === true
       ? `${args["domain"]}/image/deploy-byoc`
       : `${args["domain"]}/image/deploy`;
     if (args["token"]) {
