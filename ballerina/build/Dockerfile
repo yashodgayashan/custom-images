@@ -15,3 +15,7 @@ RUN apk update && \
 RUN curl -sSL "https://github.com/buildpacks/pack/releases/download/v0.35.1/pack-v0.35.1-linux.tgz" | tar -C /usr/local/bin -xzv pack
 
 WORKDIR /usr/src/app
+
+COPY generate_webhook_openapi.sh .
+
+RUN chmod +x generate_webhook_openapi.sh
