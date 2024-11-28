@@ -136,7 +136,7 @@ async function main() {
       console.error(`Failed to load registry credentials: ${error}`);
     }
 
-    
+    console.log("is-container-deployment", args["is-container-deployment"]);
     const body = args["is-container-deployment"]
       ? {
           image: args["image-name"],
@@ -181,6 +181,7 @@ async function main() {
       if (args["debug"]) {
         console.log("Request body:", JSON.stringify(body, null, 2));
       }
+      console.log("webhookURL", webhookURL);
 
       try {
         await axios.post(webhookURL, body);
