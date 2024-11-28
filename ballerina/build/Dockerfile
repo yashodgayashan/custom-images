@@ -10,8 +10,8 @@ RUN apk update && \
     fuse-overlayfs=1.14-r0 \
     slirp4netns=1.2.3-r0 \
     lsb-release=12.0-r2 \
-    nodejs=20.5.0-r0 \
-    npm=9.6.0-r0 \
+    nodejs=21.7.3-r0 \
+    npm=10.9.1-r0 \
     && rm -rf /var/cache/apk/*
 
 RUN curl -sSL "https://github.com/buildpacks/pack/releases/download/v0.35.1/pack-v0.35.1-linux.tgz" | tar -C /usr/local/bin -xzv pack
