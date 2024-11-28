@@ -137,7 +137,7 @@ async function main() {
     }
 
     console.log("is-container-deployment", args["is-container-deployment"]);
-    const body = args["is-container-deployment"]
+    const body = args["is-container-deployment"] === true
       ? {
           image: args["image-name"],
           tag: args["git-hash"],
