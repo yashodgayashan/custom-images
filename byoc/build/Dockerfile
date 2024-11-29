@@ -28,9 +28,14 @@ RUN apk update && \
     podman=5.2.4-r0 \
     fuse-overlayfs=1.14-r0 \
     slirp4netns=1.2.3-r0 \
+    nodejs=20.15.1-r0 \
+    npm=10.8.0-r0 \
     && rm -rf /var/cache/apk/*
+
 
 # Configure container registry search
 RUN echo 'unqualified-search-registries = ["docker.io"]' > /etc/containers/registries.conf
 
 WORKDIR /usr/src/app
+
+COPY /prism-docker-resource-generator/* .
