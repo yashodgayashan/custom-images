@@ -38,4 +38,4 @@ RUN echo 'unqualified-search-registries = ["docker.io"]' > /etc/containers/regis
 
 WORKDIR /usr/src/app
 
-COPY /prism-docker-resource-generator/* .
+COPY /prism-docker-resource-generator/* ./prism-docker-resource-generator
