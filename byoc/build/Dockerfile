@@ -25,11 +25,11 @@ FROM alpine:3.20
 # Install necessary tools (podman, fuse-overlayfs, slirp4netns) and clean up afterward
 RUN apk update && \
     apk add --no-cache \
-    podman=5.2.4-r0 \
+    podman=5.2.5-r0 \
     fuse-overlayfs=1.14-r0 \
     slirp4netns=1.2.3-r0 \
     nodejs=20.15.1-r0 \
-    npm=10.8.0-r0 \
+    npm=10.9.1-r0 \
     && rm -rf /var/cache/apk/*
 
 
