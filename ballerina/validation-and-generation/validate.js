@@ -103,7 +103,7 @@ async function validateComponentYaml(sourceRootDir, schemaVersion) {
   }
 }
 
-async function validateSourceConfigFile(sourceRootDir, fileType, srcConfigYamlFile) {
+async function validateSourceConfigFile(sourceRootDir, fileType) {
   try {
     switch (fileType) {
       case sourceConfigFileTypes.COMPONENT_YAML:
@@ -138,8 +138,8 @@ async function main() {
     const fileContent = readSrcConfigYaml(sourceRootDir, fileType);
     console.log("Source config file read succeeded");
     console.log("fileContent:", fileContent);
-    const srcConfigYamlFile = parseYaml(fileContent);
-    await validateSourceConfigFile(sourceRootDir, fileType, srcConfigYamlFile);
+    srcConfigYamlFile = parseYaml(fileContent);
+    await validateSourceConfigFile(sourceRootDir, fileType);
     console.log("Source config file validation succeeded");
   } catch (error) {
     console.error(error.message);
