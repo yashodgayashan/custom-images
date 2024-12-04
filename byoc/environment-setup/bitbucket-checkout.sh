@@ -62,5 +62,9 @@ echo "Username: ${username}"
 echo "Token: ${token}"
 
 git remote add origin "https://${username}:${token}@bitbucket.org/${userOrgName}/${userRepoName}.git" || handle_error "Failed to add git remote"
+
+echo "Fetching from git remote..."
 git -c protocol.version=2 fetch --no-tags --prune --progress --no-recurse-submodules origin || handle_error "Failed to fetch from git remote"
+
+echo "Checking out branch ${ref}..."
 git checkout -b "${ref}" "${ref}" || handle_error "Failed to checkout branch ${ref}"
