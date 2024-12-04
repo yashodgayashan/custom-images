@@ -27,26 +27,19 @@ const componentYamlPath = path.join(basePath, '.choreo', 'component.yaml');
 const componentConfigYamlPath = path.join(basePath, '.choreo', 'component-config.yaml');
 const endpointsYamlPath = path.join(basePath, '.choreo', 'endpoints.yaml');
 
-console.log("componentYamlPath:", componentYamlPath);
-console.log("componentConfigYamlPath:", componentConfigYamlPath);
-console.log("endpointsYamlPath:", endpointsYamlPath);
-
 let hasSrcConfigFile = false;
 let hasComponentYaml = false;
 let srcConfigFileType = '';
 
 if (fs.existsSync(componentYamlPath)) {
-  console.log("componentYamlPath exists");
   hasSrcConfigFile = true;
   hasComponentYaml = true;
   srcConfigFileType = 'component.yaml';
 } else if (fs.existsSync(componentConfigYamlPath)) {
-  console.log("componentConfigYamlPath exists");
   hasSrcConfigFile = true;
   hasComponentYaml = false;
   srcConfigFileType = 'component-config.yaml';
 } else if (fs.existsSync(endpointsYamlPath)) {
-  console.log("endpointsYamlPath exists");
   hasSrcConfigFile = true;
   hasComponentYaml = false;
   srcConfigFileType = 'endpoints.yaml';
@@ -60,5 +53,3 @@ srcConfigFileType=${srcConfigFileType}
 
 // Write the variables to a .env file
 fs.writeFileSync('.env', envContent, 'utf8');
-
-console.log('Environment variables have been written to .env');

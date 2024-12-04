@@ -134,13 +134,9 @@ async function validateSourceConfigFile(sourceRootDir, fileType) {
 async function main() {
   try {
     const [sourceRootDir, fileType] = readInput();
-    console.log(`Validating ${fileType} in ${sourceRootDir}`);
     const fileContent = readSrcConfigYaml(sourceRootDir, fileType);
-    console.log("Source config file read succeeded");
-    console.log("fileContent:", fileContent);
     srcConfigYamlFile = parseYaml(fileContent);
     await validateSourceConfigFile(sourceRootDir, fileType);
-    console.log("Source config file validation succeeded");
   } catch (error) {
     console.error(error.message);
     process.exit(1); // Exit with a non-zero code to indicate failure
