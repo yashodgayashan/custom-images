@@ -61,6 +61,7 @@ echo "Adding git remote..."
 echo "Username: ${username}"
 echo "Token: ${token}"
 
+git init || handle_error "Failed to initialize git repository"
 git remote add origin "https://${username}:${token}@bitbucket.org/${userOrgName}/${userRepoName}.git" || handle_error "Failed to add git remote"
 
 echo "Fetching from git remote..."
