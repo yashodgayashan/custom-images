@@ -103,7 +103,7 @@ async function validateComponentYaml(sourceRootDir, schemaVersion) {
   }
 }
 
-async function validateSourceConfigFile(sourceRootDir, fileType) {
+async function validateSourceConfigFile(sourceRootDir, fileType, srcConfigYamlFile) {
   try {
     switch (fileType) {
       case sourceConfigFileTypes.COMPONENT_YAML:
