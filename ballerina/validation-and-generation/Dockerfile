@@ -29,6 +29,7 @@ COPY ./config-generate-schema.js .
 COPY ./configurable-generation-status-update.js .
 COPY ./toml-parser.js .
 COPY ./config-check.sh .
+COPY ./config-check.js .
 COPY ./configuration-check.js .
 COPY ./configuration-check.sh .
 
